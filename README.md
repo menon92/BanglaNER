@@ -54,18 +54,63 @@ python -m spacy train configs/config.cfg \
     --paths.train ./data/train.spacy \
     --paths.dev ./data/val.spacy
 ```
+You will get F1 score on val data around `0.66`
 
 #### Inferance
 For inferance please run,
 ```bash
 python test.py
 ```
+You can already pretrain model in `test.py`. Please download the pretrain model from [google drive (4.4MB)](https://drive.google.com/file/d/1IqF87JGlClqPsU7I7Et5lvi_BZksnKDl/view?usp=sharing) and set the model path in `test.py` file
 
 
 ### Training and inferance SpaCy transformer pipeline
 To training spacy transformer model please check `need GPU`,
 
 [Transformer training and inferance guide](./transformers/readme.md)
+
+You will get F1 score on val data around `0.80`
+
+
+#### Transformer based model sample output
+
+if you want to use already trained model please download pretrain model from [google drive (622.8MB)](https://drive.google.com/file/d/1IqF87JGlClqPsU7I7Et5lvi_BZksnKDl/view?usp=sharing) and set the model path in `test.py` file
+
+```python
+import spacy
+
+nlp = spacy.load("./models_multilingual_bert/model-best")
+
+text_list = [
+    "আব্দুর রহিম নামের কাস্টমারকে একশ টাকা বাকি দিলাম",
+    "১০০ টাকা জমা দিয়েছেন কবির",
+    "ডিপিডিসির স্পেশাল টাস্কফোর্সের প্রধান মুনীর চৌধুরী জানান",
+    "অগ্রণী ব্যাংকের জ্যেষ্ঠ কর্মকর্তা পদে নিয়োগ পরীক্ষার প্রশ্নপত্র ফাঁসের অভিযোগ উঠেছে।",
+    "সে আজকে ঢাকা যাবে",
+]
+for text in text_list:
+    doc = nlp(text)
+
+    print(f"Input: {text}")
+    for entity in doc.ents:
+        print(f"Entity: {entity.text}, Label: {entity.label_}")
+    print("---")
+
+# Outputs
+    Input: আব্দুর রহিম নামের কাস্টমারকে একশ টাকা বাকি দিলাম
+    Entity: আব্দুর রহিম, Label: PER
+    ---
+    Input: ১০০ টাকা জমা দিয়েছেন কবির
+    Entity: কবির, Label: PER
+    ---
+    Input: ডিপিডিসির স্পেশাল টাস্কফোর্সের প্রধান মুনীর চৌধুরী জানান
+    Entity: মুনীর চৌধুরী, Label: PER
+    ---
+    Input: অগ্রণী ব্যাংকের জ্যেষ্ঠ কর্মকর্তা পদে নিয়োগ পরীক্ষার প্রশ্নপত্র ফাঁসের অভিযোগ উঠেছে।
+    ---
+    Input: সে আজকে ঢাকা যাবে
+    ---
+```
 
 ### Trainng Tok2Vec model
 #### Data format
