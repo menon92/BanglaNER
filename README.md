@@ -1,8 +1,11 @@
 # BanglaNER
-Bangla Name Entity Recognition using SpaCy.Name entity recognition from bangla input text. Experiment is done only using one entity name (person)
+Bangla Name Entity Recognition (`NER`) using [SpaCy](https://spacy.io/). NER from bangla input text sentences. Experiment is done only using one entity name (`person`) label as `PER`
 
-Perform 5 different experiment this this data and foud that transformer base model perform better compare to other model. Please check the experimental detail and F1 score in [experimental history](./docs/experiment_history.md)
+Perform 5 different experiment this this data and foud that transformer base model perform better compare to other model. Please check the experimental detail and `F1 score` in [experimental history](./docs/experiment_history.md). Where best `F1 score ~.80`
 
+Bangla NER data is collected from, 
+- [Rifat1493/Bengali-NER](https://raw.githubusercontent.com/Rifat1493/Bengali-NER/master/all_data.txt)
+- [banglakit/bengali-ner-data](https://raw.githubusercontent.com/banglakit/bengali-ner-data/master/main.jsonl)
 
 ### Dependency
 ```bash
@@ -12,19 +15,21 @@ pip install spacy-transformers # need if you want to use transformer
 
 ### Data prepration
 1. Clean IOB and remove data which is in wrong IOB format
-2. IOB to spacy `.spacy` data format in in SpaCy3.x
+
+#### Data conversion command (Optional)
+1. IOB to spacy `.spacy` data format in in SpaCy3.x
     - `python -m spacy convert -c iob -s -n 1 ner-token-per-line.iob ./data`
     - [Example SpaCy json data](https://github.com/explosion/spaCy/blob/v2.3.5/examples/training/ner_example_data/ner-token-per-line.json)
-3. Convert `BLIOU` json format to `.spacy` data format
-    `python -m spacy convert all_data_rm_new_line.json ./data`
+2. Convert `BLIOU` json format to `.spacy` data format
+    `python -m spacy convert train.json ./data`
 
-To automate data prepration just run,
+#### Automate data prepration
+1. To automate data prepration just run,
 ```bash
 python utils/convert_to_spacy_json_format.py
 ```
 This scrip will generate `data/train.json`, `data/val.json`
-
-Convert json data to `.spacy` data
+2. Convert json data to `.spacy` data
 ```sh
 python -m spacy convert data/train.json ./data
 python -m spacy convert data/val.json ./data
@@ -144,7 +149,7 @@ B = Begin
 ```
 
 ### Referance
-- [BILOU meaning](https://stackoverflow.com/questions/17116446what-do-the-bilou-tags-mean-in-named-entity-recognition)
+- [BILOU data formats meaning](https://stackoverflow.com/questions/17116446what-do-the-bilou-tags-mean-in-named-entity-recognition)
 - [SpaCy 3.1 data format](https://zachlim98.github.io/me/2021-03/spacy3-ner-tutorial)
 - [Preparing the training data](https://spacy.io/usage/training#training-data)
 - [Performance throught uncertainty](https://saxamos.github.io/2020/07/31/en-improve-spacy-performance-through-uncertainty/)
