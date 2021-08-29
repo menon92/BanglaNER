@@ -74,7 +74,7 @@ You will get F1 score on val data around `0.80`
 
 #### Transformer based model sample output
 
-if you want to use already trained model please download pretrain model from [google drive (622.8MB)](https://drive.google.com/file/d/1IqF87JGlClqPsU7I7Et5lvi_BZksnKDl/view?usp=sharing) and set the model path in `test.py` file
+if you want to use already trained model please download pretrain model from [google drive (622.8MB)](https://drive.google.com/file/d/1kGBfAOvazd7w0BJKADUDfbvdum7JqRNh/view?usp=sharing) and set the model path in `test.py` file
 
 ```python
 import spacy
