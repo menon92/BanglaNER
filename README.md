@@ -29,6 +29,7 @@ pip install spacy-transformers # need if you want to use transformer
 python utils/convert_to_spacy_json_format.py
 ```
 This scrip will generate `data/train.json`, `data/val.json`
+
 2. Convert json data to `.spacy` data
 ```sh
 python -m spacy convert data/train.json ./data
