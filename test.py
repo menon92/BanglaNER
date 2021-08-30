@@ -2,7 +2,7 @@
 import spacy
 
 # Load English tokenizer, tagger, parser and NER
-nlp = spacy.load("output/model-best")
+nlp = spacy.load("models/model-best")
 
 text_list = [
     "আব্দুর রহিম নামের কাস্টমারকে একশ টাকা বাকি দিলাম",
