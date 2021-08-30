@@ -4,6 +4,8 @@
 2. Upoad this notebook
 3. Execute the notebook
 
+Or you can directly go to [bangla ner public notebook](https://www.kaggle.com/menonbrur/spacy-transformer-bangla-ner)
+
 This notebook contain both training and inferance code
 
 Training log
