@@ -136,6 +136,8 @@ for text in text_list:
     ---
 ```
 
+__NOTE__: [Why to use Transformer base model ?](https://spacy.io/usage/embeddings-transformers#vectors-vs-language-models)
+
 ### Trainng Tok2Vec model
 #### Data format
 ```
