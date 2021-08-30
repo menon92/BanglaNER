@@ -4,7 +4,7 @@ import random
 
 from spacy.training.iob_utils import iob_to_biluo
 
-from .tokenizer import BasicTokenizer
+from tokenizer import BasicTokenizer
 
 
 supported_entity_tags_iob = {'O', 'I-PER', 'B-PER'}
@@ -299,5 +299,4 @@ if __name__ == "__main__":
 
     # 6. split data into train and validation
     file_name = 'data/merge_all_data_and_main_jsonl.json'
-    file_name = 'data/data_contain_at_list_one_name_tag.json'
     split_data_to_train_val(file_name)
