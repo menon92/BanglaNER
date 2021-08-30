@@ -1,7 +1,7 @@
 # BanglaNER
 Bangla Name Entity Recognition (`NER`) using [SpaCy](https://spacy.io/). NER from bangla input text sentences. Experiment is done only using one entity name (`person`) label as `PER`
 
-Perform 5 different experiment this this data and foud that transformer base model perform better compare to other model. Please check the experimental detail and `F1 score` in [experimental history](./docs/experiment_history.md). Where best `F1 score ~.80`
+Perform 5 different experiment this this data and foud that [Transformer](https://en.wikipedia.org/wiki/Transformer_(machine_learning_model)) base model perform better compare to other model so far for this data. Please check the experimental detail and `F1 score` in [experimental history](./docs/experiment_history.md). Where best `F1 score ~.80`
 
 Bangla NER data is collected from, 
 - [Rifat1493/Bengali-NER](https://raw.githubusercontent.com/Rifat1493/Bengali-NER/master/all_data.txt)
@@ -12,6 +12,10 @@ Bangla NER data is collected from,
 conda install spacy=3.1
 pip install spacy-transformers # need if you want to use transformer 
 ```
+
+__NOTE__: If you want to just test the ner model please,
+- Go [SpaCy Transition base model test](https://github.com/menon92/BanglaNER#inferance)
+- Go [SpaCy Transformer base model test](https://github.com/menon92/BanglaNER#transformer-based-model-sample-output) 
 
 ### Data prepration
 1. Clean IOB and remove data which is in wrong IOB format
@@ -34,6 +38,10 @@ This scrip will generate `data/train.json`, `data/val.json`
 ```sh
 python -m spacy convert data/train.json ./data
 python -m spacy convert data/val.json ./data
+
+# Outputs
+✔ Generated output file (8986 documents): data/train.spacy
+✔ Generated output file (999 documents): data/val.spacy
 ```
 Above two command will generate `data/train.spacy`, and `data/val.spacy`
 
@@ -45,6 +53,16 @@ Above two command will generate `data/train.spacy`, and `data/val.spacy`
 Go to the [link](https://spacy.io/usage/training#config) and create a base config file and save it uinder `./configs/base_config.cfg`
 
 ![](./docs/images/spacy_base_config_file.png)
+
+Required fils for ner task are already in,
+
+```sh
+configs/
+├── base_config.cfg     # base ner file configuration download from spacy website
+├── config.cfg          # use to train ner pipeline
+└── config_pretrain.cfg # use to train only tok2vec seperately
+
+```
 
 #### Prepare configuration files
 Now convert `./configs/base_config.cfg` to config file `./configs/config.cfg`
@@ -149,9 +167,12 @@ O = Outside
 B = Begin
 ```
 
-### Referance
+### References
 - [BILOU data formats meaning](https://stackoverflow.com/questions/17116446what-do-the-bilou-tags-mean-in-named-entity-recognition)
 - [SpaCy 3.1 data format](https://zachlim98.github.io/me/2021-03/spacy3-ner-tutorial)
 - [Preparing the training data](https://spacy.io/usage/training#training-data)
 - [Performance throught uncertainty](https://saxamos.github.io/2020/07/31/en-improve-spacy-performance-through-uncertainty/)
 - [WikiANN model](https://huggingface.co/datasets/wikiann)
+- [Transformer machine learning model](https://en.wikipedia.org/wiki/Transformer_(machine_learning_model))
+- [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
+
