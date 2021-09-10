@@ -1,0 +1,2 @@
+python -m spacy convert data/SemiEval/SemEval2022-Task11_Train-Dev/BN-Bangla/bn_train.conll ./data/SemiEval/SemEval2022-Task11_Train-Dev/BN-Bangla/
+python -m spacy convert data/SemiEval/SemEval2022-Task11_Train-Dev/BN-Bangla/bn_dev.conll ./data/SemiEval/SemEval2022-Task11_Train-Dev/BN-Bangla/
