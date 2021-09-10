@@ -56,6 +56,8 @@ def conll_to_bliou_format(conll_file, bliou_file, save_at='data'):
     data_id = 0
     spacy_json_data = []
     unique_tags = set()
+    unique_tokens = set()
+    unique_chars = set()
     for line in data:
         if line.startswith("# id"):
             # this is a new sentences
@@ -80,6 +82,9 @@ def conll_to_bliou_format(conll_file, bliou_file, save_at='data'):
             # count each entiry frequency
             if tag in entiry_freq:
                 entiry_freq[tag] += 1
+            unique_tokens.add(text)
+            for c in text:
+                unique_chars.add(c)
 
             unique_tags.add(tag)
             tokens.append({
@@ -87,26 +92,39 @@ def conll_to_bliou_format(conll_file, bliou_file, save_at='data'):
                 "tag": "-",
                 "ner": tag
             })
+    unique_chars = sorted(unique_chars)
     bliou_file = os.path.join(save_at, bliou_file)
     with open(bliou_file, 'w') as fp:
         json.dump(spacy_json_data, fp, indent=2, ensure_ascii=False)
-        print(f"File save at: {bliou_file}")
-    print(f"Unique tags: {unique_tags}")
-    print(f"Entity frequency: {entiry_freq}")
+        print(f"File save at      : {bliou_file}")
+    print(f"Unique tags       : {unique_tags}")
+    print(f"Entity frequency  : {entiry_freq}")
+    print(f"Total unique token: {len(unique_tokens)}")
+    print(f"Total unique chars: {len(unique_chars)}")
+    print(f"Unique chars      : {unique_chars}")
+    print('*****')
+
+    return unique_tokens
 
 
 if __name__ == "__main__":
     train_data_path = 'data/SemiEval/SemEval2022-Task11_Train-Dev/BN-Bangla/bn_train.conll'
     dev_data_path = 'data/SemiEval/SemEval2022-Task11_Train-Dev/BN-Bangla/bn_dev.conll'
 
-    conll_to_bliou_format(
+    tok_dev = conll_to_bliou_format(
         conll_file=dev_data_path,
         bliou_file='bn_dev.json',
         save_at='data/SemiEval/SemEval2022-Task11_Train-Dev/BN-Bangla'
     )
 
-    conll_to_bliou_format(
+    tok_train = conll_to_bliou_format(
         conll_file=train_data_path,
         bliou_file='bn_train.json',
         save_at='data/SemiEval/SemEval2022-Task11_Train-Dev/BN-Bangla'
+    )
+
+    un_common_tok = tok_dev - tok_train
+    print(f"Total un-common token in dev: {len(un_common_tok)}")
+    open('data/SemiEval/SemEval2022-Task11_Train-Dev/BN-Bangla/uncommon_token.txt', 'w').write(
+        '\n'.join(un_common_tok)
     )
