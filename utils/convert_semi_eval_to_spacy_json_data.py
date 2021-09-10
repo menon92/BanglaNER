@@ -6,6 +6,13 @@ import json
 from spacy.training.iob_utils import iob_to_biluo
 
 
+entiry_freq = {
+    'B-PER': 0, 'B-CW': 0, 'B-LOC': 0,
+    'B-PROD': 0, 'B-GRP': 0, 'B-CORP': 0, 
+    'O': 0
+}
+
+
 def update_iob_tags_with_biluo_tags(tokens):
     # convert iob tokens to biluo formats
     token_ner_iob_tags = []
@@ -66,7 +73,14 @@ def conll_to_bliou_format(conll_file, bliou_file, save_at='data'):
             line = line.strip()
             if not line:
                 continue
+            
+            # unpack text and tag
             text,_, _,tag = line.split(' ')
+            
+            # count each entiry frequency
+            if tag in entiry_freq:
+                entiry_freq[tag] += 1
+
             unique_tags.add(tag)
             tokens.append({
                 "orth": text,
@@ -78,6 +92,7 @@ def conll_to_bliou_format(conll_file, bliou_file, save_at='data'):
         json.dump(spacy_json_data, fp, indent=2, ensure_ascii=False)
         print(f"File save at: {bliou_file}")
     print(f"Unique tags: {unique_tags}")
+    print(f"Entity frequency: {entiry_freq}")
 
 
 if __name__ == "__main__":
